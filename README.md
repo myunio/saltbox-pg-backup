@@ -81,7 +81,7 @@ gunzip -c myapp_production_2026-09-08_00-00-00.sql.gz \
 ## Releasing
 
 Tag a semver release and the workflow publishes `ghcr.io/myunio/unio-pg-backup:<version>`,
-plus `<major>.<minor>`, `<major>` and `latest`.
+plus `<major>.<minor>` and `<major>`. No `latest` tag on purpose: pin a version.
 
 ```bash
 git tag v1.0.0 && git push --tags
