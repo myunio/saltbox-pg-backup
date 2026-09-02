@@ -1,11 +1,11 @@
-# unio-pg-backup
+# saltbox-pg-backup
 
 Nightly `pg_dump` of one PostgreSQL database, gzipped and uploaded to
 DigitalOcean Spaces and, optionally, Backblaze B2. Prunes old dumps on each
 target. Built to run as a [Kamal](https://kamal-deploy.org) accessory next to
 a `postgres` accessory, but it is just a container with cron in it.
 
-Image: `ghcr.io/myunio/unio-pg-backup` (PostgreSQL 18 client tools, rclone, dcron on Alpine).
+Image: `ghcr.io/myunio/saltbox-pg-backup` (PostgreSQL 18 client tools, rclone, dcron on Alpine).
 
 ## Environment
 
@@ -37,8 +37,8 @@ at `<DUMP_DIR>/<filename>`. `pg_dump` runs with `--no-owner --no-privileges`.
 ```yaml
 accessories:
   pg-backup:
-    # renovate: datasource=docker depName=ghcr.io/myunio/unio-pg-backup
-    image: ghcr.io/myunio/unio-pg-backup:1.0.0
+    # renovate: datasource=docker depName=ghcr.io/myunio/saltbox-pg-backup
+    image: ghcr.io/myunio/saltbox-pg-backup:1.0.0
     host: 203.0.113.10
     options:
       memory: 128m
@@ -80,7 +80,7 @@ gunzip -c myapp_production_2026-09-08_00-00-00.sql.gz \
 
 ## Releasing
 
-Tag a semver release and the workflow publishes `ghcr.io/myunio/unio-pg-backup:<version>`,
+Tag a semver release and the workflow publishes `ghcr.io/myunio/saltbox-pg-backup:<version>`,
 plus `<major>.<minor>` and `<major>`. No `latest` tag on purpose: pin a version.
 
 ```bash
