@@ -203,8 +203,11 @@ ping_healthcheck() {
   local url="${HEALTHCHECK_URL:-${PG_BACKUP_HEALTHCHECK_URL:-}}"
   [ -n "${url}" ] || return 0
 
+  # Retried: a busy Healthchecks can answer 502 or time out on one attempt,
+  # and a lost ping shows a successful backup as DOWN.
   info "Pinging healthcheck..."
-  wget -q -O /dev/null "${url}" || warn "Healthcheck ping failed (non-fatal)"
+  curl -fsS -m 10 --retry 5 --retry-all-errors -o /dev/null "${url}" \
+    || warn "Healthcheck ping failed after retries (non-fatal)"
 }
 
 cleanup() {

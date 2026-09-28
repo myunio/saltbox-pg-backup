@@ -5,7 +5,7 @@ DigitalOcean Spaces and, optionally, Backblaze B2. Prunes old dumps on each
 target. Built to run as a [Kamal](https://kamal-deploy.org) accessory next to
 a `postgres` accessory, but it is just a container with cron in it.
 
-Image: `ghcr.io/myunio/saltbox-pg-backup` (PostgreSQL 18 client tools, rclone, dcron on Alpine).
+Image: `ghcr.io/myunio/saltbox-pg-backup` (PostgreSQL 18 client tools, rclone, curl, dcron on Alpine).
 
 ## Environment
 
@@ -27,7 +27,7 @@ Image: `ghcr.io/myunio/saltbox-pg-backup` (PostgreSQL 18 client tools, rclone, d
 | `B2_ENDPOINT` | | `s3.us-west-001.backblazeb2.com` | |
 | `B2_RETENTION_DAYS` | | `90` | |
 | `CRON_SCHEDULE` | | `0 0 * * *` | |
-| `HEALTHCHECK_URL` | no | | pinged with GET after a successful run |
+| `HEALTHCHECK_URL` | no | | pinged with GET after a successful run; 5 retries, 10 s per attempt, on any error |
 
 Dumps are named `<DUMP_PREFIX>_<YYYY-MM-DD_HH-MM-SS>.sql.gz` (UTC) and stored
 at `<DUMP_DIR>/<filename>`. `pg_dump` runs with `--no-owner --no-privileges`.
