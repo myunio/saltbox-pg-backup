@@ -9,6 +9,7 @@ RUN apk add --no-cache \
   rclone \
   dcron \
   bash \
+  curl \
   gzip
 
 COPY backup.sh /backup.sh
